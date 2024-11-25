@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Blog Post</title>
+    <style>
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            padding: 2rem;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        /* Blog title styling */
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Blog image styling */
+        .blog-cover {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Blog body styling */
+        pre {
+            white-space: pre-wrap;
+            font-size: 1rem;
+            color: #555;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Author section styling */
+        .author-section {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #6e8efb;
+            margin-right: 1rem;
+        }
+
+        .author-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Comments section styling */
+        .comments-section {
+            margin-top: 2rem;
+        }
+
+        .comments-section h2 {
+            font-size: 1.5rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        /* Comment form styling */
+        .comment-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .comment-form button {
+            padding: 0.6rem 1.2rem;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-form button:hover {
+            background-color: #45a049;
+        }
+
+        /* Individual comment styling */
+        .comment {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            margin-right: 0.8rem;
+        }
+
+        .comment-content {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container">
+        <h1><%= blog.title %></h1>
+        <img src="<%= blog.coverImageURL %>" class="blog-cover" alt="Blog Cover Image">
+        <pre><%= blog.body %></pre>
+    </div>
+
+    <div class="container author-section">
+        <img src="<%= blog.createdBy.profileImageURL %>" class="author-img" alt="Author Profile Image">
+        <span class="author-name"><%= blog.createdBy.fullName %></span>
+    </div>
+
+    <div class="container comments-section">
+        <h2>Comments (<%= comments.length %>)</h2>
+        <% if (locals.user) { %>
+        <form action="/blog/comment/<%= blog._id %>" method="post" class="comment-form">
+            <input type="text" placeholder="Enter Your Comment" class="form-control" name="content" required>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form> 
+        <% } %>  
+
+        <div class="mt-3">
+            <% comments.forEach(comment => { %>
+            <div class="comment">
+                <img src="<%= comment.createdBy.profileImageURL %>" alt="Commenter Profile Image">
+                <div>
+                    <div class="comment-author"><%= comment.createdBy.fullName %></div>
+                    <div class="comment-content"><%= comment.content %></div>
+                </div>
+            </div>
+            <% }) %>
+        </div>     
+    </div>
+    
+    <%- include('./partials/scripts') %>
+</body>
+</html>

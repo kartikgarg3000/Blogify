@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Add New Blog Page</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            padding: 2rem;
+        }
+
+        /* Form container styling */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Labels */
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        /* Input fields */
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Textarea */
+        .form-floating {
+            margin-top: 1.5rem;
+        }
+
+        textarea {
+            resize: vertical;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Button styling */
+        .btn-primary {
+            padding: 0.6rem 1.2rem;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <form action="/blog" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="mt-3">
+                <label for="title" class="form-label">Blog Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter your blog title">
+            </div>
+            <div class="mt-2">
+                <label for="coverImage" class="form-label">Cover Image</label>
+                <input type="file" class="form-control" id="coverImage" name="coverImage">
+            </div>
+            <div class="form-floating mt-4">
+                <textarea class="form-control" id="floatingTextarea2" name="body" style="height: 200px" placeholder="Write your blog content here"></textarea>
+                <label for="floatingTextarea2">Write Your Blog</label>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+    <%- include('./partials/scripts') %>
+</body>
+</html>
